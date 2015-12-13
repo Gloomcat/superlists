@@ -5,6 +5,9 @@ from lists.models import Item
 def home_page(request):
 	if request.method == 'POST':
 		item = Item.objects.create(text=request.POST['item_text'])
-		return redirect('/')
+		return redirect('/lists/5/')
 
-	return render(request, 'home.html', {'items': Item.objects.all()})
+	return render(request, 'home.html')
+
+def view_list(request):
+	return render(request, 'list.html', {'items': Item.objects.all()})
