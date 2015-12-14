@@ -1,9 +1,9 @@
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
 	def setUp(self):
 		self.browser = webdriver.Chrome()
 		self.browser.implicitly_wait(3)
@@ -34,7 +34,7 @@ class NewVisitorTest(LiveServerTestCase):
 		)
 		self.assertAlmostEqual(
 			input_box.location['x'] + input_box.size['width'] / 2,
-			512,
+			480,
 			delta=5
 		)
 
@@ -89,15 +89,14 @@ class NewVisitorTest(LiveServerTestCase):
 		self.assertIn('Buy milk', page_text)
 
 		# Satisfied, they both go back to sleep
-		self.fail('Finish the test!')
 
 	def test_layout_and_styling(self):
 		self.browser.get(self.live_server_url)
-		self.browser.set_window_size(900, 768)
+		self.browser.set_window_size(960, 768)
 
 		input_box = self.browser.find_element_by_id('id_new_item')
 		self.assertAlmostEqual(
 			input_box.location['x'] + input_box.size['width'] / 2,
-			450,
+			480,
 			delta=5
 		)
