@@ -32,6 +32,11 @@ class NewVisitorTest(LiveServerTestCase):
 			input_box.get_attribute('placeholder'),
 			'Enter a to-do item'
 		)
+		self.assertAlmostEqual(
+			input_box.location['x'] + input_box.size['width'] / 2,
+			512,
+			delta=5
+		)
 
 		# She types "Buy peacock feathers" into a text box (Edith's hobby
 		# is tying fly-fishing lures)
@@ -85,3 +90,14 @@ class NewVisitorTest(LiveServerTestCase):
 
 		# Satisfied, they both go back to sleep
 		self.fail('Finish the test!')
+
+	def test_layout_and_styling(self):
+		self.browser.get(self.live_server_url)
+		self.browser.set_window_size(900, 768)
+
+		input_box = self.browser.find_element_by_id('id_new_item')
+		self.assertAlmostEqual(
+			input_box.location['x'] + input_box.size['width'] / 2,
+			450,
+			delta=5
+		)
